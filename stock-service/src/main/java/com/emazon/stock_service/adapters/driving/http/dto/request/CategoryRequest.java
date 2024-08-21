@@ -1,4 +1,4 @@
-package com.emazon.stock_service.application.dto.request;
+package com.emazon.stock_service.adapters.driving.http.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

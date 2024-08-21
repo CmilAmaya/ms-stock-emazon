@@ -6,5 +6,7 @@ import java.util.Optional;
 
 public interface ICategoryPersistencePort {
     void save(Category category);
+    void delete(String name);
     Optional<Category> findByName(String name);
+    List<Category> findAllCategories(int page, int size, boolean ascending);
 }

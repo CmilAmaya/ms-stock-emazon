@@ -1,6 +1,6 @@
-package com.emazon.stock_service.application.mapper;
+package com.emazon.stock_service.adapters.driving.http.mapper;
 
-import com.emazon.stock_service.application.dto.response.CategoryResponse;
+import com.emazon.stock_service.adapters.driving.http.dto.response.CategoryResponse;
 import com.emazon.stock_service.domain.model.Category;
 import org.mapstruct.Mapper;
 

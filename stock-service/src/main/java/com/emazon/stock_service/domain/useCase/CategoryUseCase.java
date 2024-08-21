@@ -21,4 +21,23 @@ public class CategoryUseCase implements ICategoryServicePort {
         }
         categoryPersistencePort.save(category);
     }
+    @Override
+    public void deleteCategory(String name) {
+        categoryPersistencePort.findByName(name)
+                .orElseThrow(() -> new CategoryNotFoundException(DomainConstants.CATEGORY_NOT_FOUND));
+        categoryPersistencePort.delete(name);
+    }
+    @Override
+    public Category getCategory(String name) {
+        return categoryPersistencePort.findByName(name)
+                .orElseThrow(() -> new CategoryNotFoundException(DomainConstants.CATEGORY_NOT_FOUND));
+    }
+    @Override
+    public List<Category> getAllCategoriesAscending(int page, int size) {
+        return categoryPersistencePort.findAllCategories(page, size, true);
+    }
+    @Override
+    public List<Category> getAllCategoriesDescending(int page, int size) {
+        return categoryPersistencePort.findAllCategories(page, size, false);
+    }
 }
