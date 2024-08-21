@@ -1,8 +1,8 @@
-package com.emazon.stock_service.infrastucture.out.jpa.mapper;
+package com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.mapper;
 
 import com.emazon.stock_service.domain.model.Category;
 
-import com.emazon.stock_service.infrastucture.out.jpa.entity.CategoryEntity;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.entity.CategoryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

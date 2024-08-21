@@ -14,15 +14,15 @@ public class Category {
 
     public Category(Long id, String name, String description) {
         if (name == null || name.trim().isEmpty()) {
-            throw new EmptyFieldException(DomainConstants.Field.NAME.toString());
+            throw new EmptyFieldException(DomainConstants.FIELD_NAME_NULL_MESSAGE);
         }
-        if (name.length() > 50) {
+        if (name.length() > DomainConstants.MINIMUM_LENGTH) {
             throw new InvalidCategoryNameException(DomainConstants.FIELD_NAME_LENGTH_MESSAGE);
         }
         if (description == null || description.trim().isEmpty()) {
-            throw new EmptyFieldException(DomainConstants.Field.DESCRIPTION.toString());
+            throw new EmptyFieldException(DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
         }
-        if (description.length() > 90) {
+        if (description.length() > DomainConstants.MAXIMUM_LENGTH) {
             throw new InvalidCategoryDescriptionException(DomainConstants.FIELD_DESCRIPTION_LENGTH_MESSAGE);
         }
         this.id = id;
@@ -42,13 +42,4 @@ public class Category {
         return description;
     }
 
-    public void setName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new EmptyFieldException(DomainConstants.Field.NAME.toString());
-        }
-        if (name.length() > 50) {
-            throw new InvalidCategoryNameException(DomainConstants.FIELD_NAME_LENGTH_MESSAGE);
-        }
-        this.name = name;
-    }
 }

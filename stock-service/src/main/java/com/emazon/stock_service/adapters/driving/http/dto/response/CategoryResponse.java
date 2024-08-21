@@ -1,4 +1,4 @@
-package com.emazon.stock_service.application.dto.response;
+package com.emazon.stock_service.adapters.driving.http.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

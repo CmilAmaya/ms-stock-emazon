@@ -1,4 +1,4 @@
-package com.emazon.stock_service.infrastucture.out.jpa.entity;
+package com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;

@@ -1,11 +1,11 @@
-package com.emazon.stock_service.infrastucture.configuration;
+package com.emazon.stock_service.configuration;
 
 import com.emazon.stock_service.domain.api.ICategoryServicePort;
 import com.emazon.stock_service.domain.spi.ICategoryPersistencePort;
 import com.emazon.stock_service.domain.useCase.CategoryUseCase;
-import com.emazon.stock_service.infrastucture.out.jpa.adapter.CategoryJpaAdapter;
-import com.emazon.stock_service.infrastucture.out.jpa.mapper.ICategoryEntityMapper;
-import com.emazon.stock_service.infrastucture.out.jpa.repository.ICategoryRepository;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.adapter.CategoryJpaAdapter;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.mapper.ICategoryEntityMapper;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
