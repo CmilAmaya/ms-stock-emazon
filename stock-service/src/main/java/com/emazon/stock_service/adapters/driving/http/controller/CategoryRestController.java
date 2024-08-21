@@ -7,6 +7,7 @@ import com.emazon.stock_service.adapters.driving.http.mapper.ICategoryResponseMa
 import com.emazon.stock_service.domain.api.ICategoryServicePort;
 import com.emazon.stock_service.domain.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,24 +43,16 @@ public class CategoryRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/all/asc")
-    public ResponseEntity<List<CategoryResponse>> getAllCategoriesAscending(
-            @RequestParam int page, @RequestParam int size) {
-        List<Category> categories = categoryServicePort.getAllCategoriesAscending(page, size);
-        List<CategoryResponse> responses = categories.stream()
-                .map(categoryResponseMapper::toCategoryResponse)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(responses, HttpStatus.OK);
-    }
+    @GetMapping("/all")
+    public ResponseEntity<Page<CategoryResponse>> getAllCategories(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "asc") String sortOrder) {
 
-    @GetMapping("/all/desc")
-    public ResponseEntity<List<CategoryResponse>> getAllCategoriesDescending(
-            @RequestParam int page, @RequestParam int size) {
-        List<Category> categories = categoryServicePort.getAllCategoriesDescending(page, size);
-        List<CategoryResponse> responses = categories.stream()
-                .map(categoryResponseMapper::toCategoryResponse)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(responses, HttpStatus.OK);
+        boolean ascending = "asc".equalsIgnoreCase(sortOrder);
+        Page<Category> categoryPage = categoryServicePort.getAllCategories(page, size, ascending);
+        Page<CategoryResponse> responsePage = categoryPage.map(categoryResponseMapper::toCategoryResponse);
+        return new ResponseEntity<>(responsePage, HttpStatus.OK);
     }
 
     @DeleteMapping("/{name}")

@@ -6,6 +6,11 @@ import com.emazon.stock_service.domain.exception.InvalidCategoryNameException;
 import com.emazon.stock_service.domain.model.Category;
 import com.emazon.stock_service.domain.spi.ICategoryPersistencePort;
 import com.emazon.stock_service.domain.utils.DomainConstants;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import java.util.List;
 
 public class CategoryUseCase implements ICategoryServicePort {
@@ -33,11 +38,9 @@ public class CategoryUseCase implements ICategoryServicePort {
                 .orElseThrow(() -> new CategoryNotFoundException(DomainConstants.CATEGORY_NOT_FOUND));
     }
     @Override
-    public List<Category> getAllCategoriesAscending(int page, int size) {
-        return categoryPersistencePort.findAllCategories(page, size, true);
-    }
-    @Override
-    public List<Category> getAllCategoriesDescending(int page, int size) {
-        return categoryPersistencePort.findAllCategories(page, size, false);
+    public Page<Category> getAllCategories(int page, int size, boolean ascending) {
+        Sort sort = ascending ? Sort.by("name").ascending() : Sort.by("name").descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return categoryPersistencePort.findAllCategories(pageable);
     }
 }
