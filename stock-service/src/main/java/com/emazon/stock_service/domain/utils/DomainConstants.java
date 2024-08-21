@@ -11,4 +11,6 @@ public class DomainConstants {
     public static final String FIELD_DESCRIPTION_LENGTH_MESSAGE = "Field 'description' must be between 1 and 90 characters";
     public static final String CATEGORY_ALREADY_EXISTS_MESSAGE = "Category already exists.";
     public static final String CATEGORY_NOT_FOUND = "Category not found.";
+    public static final int MINIMUM_LENGTH = 50;
+    public static final int MAXIMUM_LENGTH = 90;
 }

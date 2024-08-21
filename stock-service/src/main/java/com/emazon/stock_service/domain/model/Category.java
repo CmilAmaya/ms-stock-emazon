@@ -16,13 +16,13 @@ public class Category {
         if (name == null || name.trim().isEmpty()) {
             throw new EmptyFieldException(DomainConstants.FIELD_NAME_NULL_MESSAGE);
         }
-        if (name.length() > 50) {
+        if (name.length() > DomainConstants.MINIMUM_LENGTH) {
             throw new InvalidCategoryNameException(DomainConstants.FIELD_NAME_LENGTH_MESSAGE);
         }
         if (description == null || description.trim().isEmpty()) {
             throw new EmptyFieldException(DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
         }
-        if (description.length() > 90) {
+        if (description.length() > DomainConstants.MAXIMUM_LENGTH) {
             throw new InvalidCategoryDescriptionException(DomainConstants.FIELD_DESCRIPTION_LENGTH_MESSAGE);
         }
         this.id = id;
