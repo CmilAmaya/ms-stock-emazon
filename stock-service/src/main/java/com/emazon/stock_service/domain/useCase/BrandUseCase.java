@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+
 public class BrandUseCase implements IBrandServicePort {
     private final IBrandPersistencePort brandPersistencePort;
     public BrandUseCase(IBrandPersistencePort brandPersistencePort) {

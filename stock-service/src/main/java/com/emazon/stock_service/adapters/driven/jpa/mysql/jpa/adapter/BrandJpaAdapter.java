@@ -41,9 +41,11 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
                 .map(brandEntityMapper::toDomainModel);
     }
 
+
     @Override
     public Page<Brand> findAllBrands(Pageable pageable) {
         return brandRepository.findAll(pageable)
                 .map(brandEntityMapper::toDomainModel);
     }
+
 }
