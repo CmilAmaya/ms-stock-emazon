@@ -1,9 +1,6 @@
 package com.emazon.stock_service.configuration.exceptionhandler;
 
-import com.emazon.stock_service.domain.exception.EmptyFieldException;
-import com.emazon.stock_service.domain.exception.InvalidCategoryNameException;
-import com.emazon.stock_service.domain.exception.InvalidCategoryDescriptionException;
-import com.emazon.stock_service.domain.exception.CategoryNotFoundException;
+import com.emazon.stock_service.domain.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -36,5 +33,23 @@ public class ControllerAdvisor {
     public ResponseEntity<ExceptionResponse> handleCategoryNotFoundException(CategoryNotFoundException ex) {
         ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), "Category not found error");
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BrandNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleBrandNotFoundException(BrandNotFoundException ex) {
+        ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), "Brand not found error");
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidBrandNameException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidBrandNameException(InvalidBrandNameException ex) {
+        ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), "Invalid brand name error");
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidBrandDescriptionException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidBrandDescriptionException(InvalidBrandDescriptionException ex) {
+        ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), "Invalid brand description error");
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
