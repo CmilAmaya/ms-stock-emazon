@@ -6,6 +6,8 @@ import com.emazon.stock_service.domain.model.Brand;
 import com.emazon.stock_service.domain.spi.IBrandPersistencePort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -38,4 +40,12 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
         return brandRepository.findByName(name)
                 .map(brandEntityMapper::toDomainModel);
     }
+
+
+    @Override
+    public Page<Brand> findAllBrands(Pageable pageable) {
+        return brandRepository.findAll(pageable)
+                .map(brandEntityMapper::toDomainModel);
+    }
+
 }
