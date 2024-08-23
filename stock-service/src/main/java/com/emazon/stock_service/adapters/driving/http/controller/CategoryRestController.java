@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -42,21 +44,21 @@ public class CategoryRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<CategoryResponse>> getAllCategories(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "asc") String sortOrder) {
+ @GetMapping("/all")
+public ResponseEntity<List<CategoryResponse>> getAllCategories(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(defaultValue = "asc") String sortOrder) {
 
-        boolean ascending = "asc".equalsIgnoreCase(sortOrder);
-        Page<Category> categoryPage = categoryServicePort.getAllCategories(page, size, ascending);
-        List<CategoryResponse> cartegoryResponseList = categoryPage.getContent()
-                .stream()
-                .map(categoryResponseMapper::toCategoryResponse)
-                .collect(Collectors.toList());
+    boolean ascending = "asc".equalsIgnoreCase(sortOrder);
+    Page<Category> categoryPage = categoryServicePort.getAllCategories(page, size, ascending);
+    List<CategoryResponse> categoryResponseList = categoryPage.getContent()
+            .stream()
+            .map(categoryResponseMapper::toCategoryResponse)
+            .collect(Collectors.toList());
 
-        return new ResponseEntity<>(cartegoryResponseList, HttpStatus.OK);
-    }
+    return new ResponseEntity<>(categoryResponseList, HttpStatus.OK);
+}
 
     @DeleteMapping("/{name}")
     public ResponseEntity<Void> deleteCategory(@PathVariable("name") String name) {
