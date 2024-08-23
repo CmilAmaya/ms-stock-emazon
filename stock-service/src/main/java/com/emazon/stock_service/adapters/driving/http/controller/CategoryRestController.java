@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/categories")
@@ -42,15 +45,19 @@ public class CategoryRestController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Page<CategoryResponse>> getAllCategories(
+    public ResponseEntity<List<CategoryResponse>> getAllCategories(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "asc") String sortOrder) {
 
         boolean ascending = "asc".equalsIgnoreCase(sortOrder);
         Page<Category> categoryPage = categoryServicePort.getAllCategories(page, size, ascending);
-        Page<CategoryResponse> responsePage = categoryPage.map(categoryResponseMapper::toCategoryResponse);
-        return new ResponseEntity<>(responsePage, HttpStatus.OK);
+        List<CategoryResponse> cartegoryResponseList = categoryPage.getContent()
+                .stream()
+                .map(categoryResponseMapper::toCategoryResponse)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(cartegoryResponseList, HttpStatus.OK);
     }
 
     @DeleteMapping("/{name}")

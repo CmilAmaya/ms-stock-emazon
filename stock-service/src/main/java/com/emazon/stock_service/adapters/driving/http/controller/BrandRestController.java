@@ -7,9 +7,13 @@ import com.emazon.stock_service.adapters.driving.http.mapper.IBrandResponseMappe
 import com.emazon.stock_service.domain.api.IBrandServicePort;
 import com.emazon.stock_service.domain.model.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/brands")
@@ -38,6 +42,23 @@ public class BrandRestController {
         BrandResponse response = brandResponseMapper.toBrandResponse(brand);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<BrandResponse>> getAllBrands(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "asc") String sortOrder) {
+
+        boolean ascending = "asc".equalsIgnoreCase(sortOrder);
+        Page<Brand> brandPage = brandServicePort.getAllBrands(page, size, ascending);
+        List<BrandResponse> brandResponseList = brandPage.getContent()
+                .stream()
+                .map(brandResponseMapper::toBrandResponse)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(brandResponseList, HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/{name}")
     public ResponseEntity<Void> deleteBrand(@PathVariable("name") String name){
