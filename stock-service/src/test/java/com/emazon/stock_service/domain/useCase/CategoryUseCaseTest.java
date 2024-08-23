@@ -176,7 +176,4 @@ import static org.mockito.Mockito.*;
        assertEquals(category1, result.getContent().get(0));
        assertEquals(category2, result.getContent().get(1));
     }
-
-
-
  }

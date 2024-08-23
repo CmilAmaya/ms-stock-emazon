@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.util.List;
 
 public class CategoryUseCase implements ICategoryServicePort {
     private final ICategoryPersistencePort categoryPersistencePort;
@@ -22,7 +21,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     @Override
     public void createCategory(Category category) {
         if(categoryPersistencePort.findByName(category.getName()).isPresent()) {
-erger            throw new InvalidCategoryNameException(DomainConstants.CATEGORY_ALREADY_EXISTS_MESSAGE);
+            throw new InvalidCategoryNameException(DomainConstants.CATEGORY_ALREADY_EXISTS_MESSAGE);
         }
         categoryPersistencePort.save(category);
     }
