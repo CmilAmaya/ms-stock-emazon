@@ -22,7 +22,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     @Override
     public void createCategory(Category category) {
         if(categoryPersistencePort.findByName(category.getName()).isPresent()) {
-            throw new InvalidCategoryNameException(DomainConstants.CATEGORY_ALREADY_EXISTS_MESSAGE);
+erger            throw new InvalidCategoryNameException(DomainConstants.CATEGORY_ALREADY_EXISTS_MESSAGE);
         }
         categoryPersistencePort.save(category);
     }
