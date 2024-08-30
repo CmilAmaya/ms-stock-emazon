@@ -44,21 +44,21 @@ public class CategoryRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
- @GetMapping("/all")
-public ResponseEntity<List<CategoryResponse>> getAllCategories(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size,
-        @RequestParam(defaultValue = "asc") String sortOrder) {
+    @GetMapping("/all")
+    public ResponseEntity<List<CategoryResponse>> getAllCategories(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "asc") String sortOrder) {
 
-    boolean ascending = "asc".equalsIgnoreCase(sortOrder);
-    Page<Category> categoryPage = categoryServicePort.getAllCategories(page, size, ascending);
-    List<CategoryResponse> categoryResponseList = categoryPage.getContent()
-            .stream()
-            .map(categoryResponseMapper::toCategoryResponse)
-            .collect(Collectors.toList());
+        boolean ascending = "asc".equalsIgnoreCase(sortOrder);
+        Page<Category> categoryPage = categoryServicePort.getAllCategories(page, size, ascending);
+        List<CategoryResponse> categoryResponseList = categoryPage.getContent()
+                .stream()
+                .map(categoryResponseMapper::toCategoryResponse)
+                .collect(Collectors.toList());
 
-    return new ResponseEntity<>(categoryResponseList, HttpStatus.OK);
-}
+        return new ResponseEntity<>(categoryResponseList, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{name}")
     public ResponseEntity<Void> deleteCategory(@PathVariable("name") String name) {

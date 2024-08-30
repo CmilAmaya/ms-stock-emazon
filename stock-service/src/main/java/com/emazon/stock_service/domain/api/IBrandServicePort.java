@@ -8,6 +8,7 @@ public interface IBrandServicePort {
     void createBrand(Brand brand);
     void deleteBrand(String name);
     Brand getBrand(String name);
+    Brand getBrandById(Long id);
     Page<Brand> getAllBrands(int page, int size, boolean ascending);
 
 }

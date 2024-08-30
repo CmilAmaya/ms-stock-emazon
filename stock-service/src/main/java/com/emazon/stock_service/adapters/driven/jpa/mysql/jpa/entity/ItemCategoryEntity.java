@@ -1,33 +1,29 @@
 package com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.GeneratedValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
-@Table(name = "Marca")
+@Table(name = "ArticuloCategoria")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class BrandEntity {
+public class ItemCategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UniqueID")
     private Long id;
 
-    @Column(name = "nombre")
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_categoria", referencedColumnName = "UniqueID", nullable = false)
+    private CategoryEntity category;
 
-    @Column(name = "descripcion")
-    private String description;
-
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemEntity> items;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_articulo", referencedColumnName = "UniqueID", nullable = false)
+    private ItemEntity item;
 }

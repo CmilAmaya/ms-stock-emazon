@@ -37,6 +37,12 @@ public class BrandUseCase implements IBrandServicePort {
     }
 
     @Override
+    public Brand getBrandById(Long id) {
+        return brandPersistencePort.findById(id)
+                .orElseThrow(() -> new InvalidBrandNameException("Brand not found"));
+    }
+
+    @Override
     public Page<Brand> getAllBrands(int page, int size, boolean ascending) {
         Sort sort = ascending ? Sort.by("name").ascending() : Sort.by("name").descending();
         Pageable pageable = PageRequest.of(page, size, sort);

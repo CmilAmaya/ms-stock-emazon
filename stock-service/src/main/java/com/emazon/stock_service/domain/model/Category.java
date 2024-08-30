@@ -5,12 +5,15 @@ import com.emazon.stock_service.domain.exception.InvalidCategoryDescriptionExcep
 import com.emazon.stock_service.domain.exception.InvalidCategoryNameException;
 import com.emazon.stock_service.domain.utils.DomainConstants;
 
+import java.util.List;
+
 import static java.util.Objects.requireNonNull;
 
 public class Category {
     private Long id;
     private String name;
     private String description;
+
 
     public Category(Long id, String name, String description) {
         if (name == null || name.trim().isEmpty()) {
