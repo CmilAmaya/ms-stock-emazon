@@ -45,7 +45,7 @@ public class BrandRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-
+    @GetMapping("/all")
     public ResponseEntity<List<BrandResponse>> getAllBrands(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,

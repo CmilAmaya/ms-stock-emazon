@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -50,12 +52,12 @@ public class CategoryRestController {
 
         boolean ascending = "asc".equalsIgnoreCase(sortOrder);
         Page<Category> categoryPage = categoryServicePort.getAllCategories(page, size, ascending);
-        List<CategoryResponse> cartegoryResponseList = categoryPage.getContent()
+        List<CategoryResponse> categoryResponseList = categoryPage.getContent()
                 .stream()
                 .map(categoryResponseMapper::toCategoryResponse)
                 .collect(Collectors.toList());
 
-        return new ResponseEntity<>(cartegoryResponseList, HttpStatus.OK);
+        return new ResponseEntity<>(categoryResponseList, HttpStatus.OK);
     }
 
     @DeleteMapping("/{name}")

@@ -17,4 +17,9 @@ public class DomainConstants {
     public static final int MAXIMUM_LENGTH_NAME = 50;
     public static final int MAXIMUM_LENGTH_DESCRIPTION_CATEGORY = 90;
     public static final int MAXIMUM_LENGTH_DESCRIPTION_BRAND = 120;
+    public static final  String FIELD_CATEGORIES_NULL_MESSAGE = "Field 'categories' must have at least one category";
+    public static final String FIELD_CATEGORIES_NUMBER_MESSAGE = "Field 'categories' must have at most 3 categories";
+    public static final String ITEM_ALREADY_EXISTS_MESSAGE = "Item already exists.";
+    public static final String ITEM_NOT_FOUND = "Item not found.";
+    public static final int MAXIMUM_CATEGORY_NUMBER = 3;
 }

@@ -1,6 +1,9 @@
 package com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.adapter;
 
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.exception.CategoryAlreadyExistsException;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.exception.CategoryNotFoundException;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.repository.ICategoryRepository;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.utils.AdapterConstants;
 import com.emazon.stock_service.domain.model.Category;
 import com.emazon.stock_service.domain.spi.ICategoryPersistencePort;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.mapper.ICategoryEntityMapper;
@@ -23,7 +26,7 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     @Transactional
     public void save(Category category) {
         if (categoryRepository.findByName(category.getName()).isPresent()) {
-            throw new IllegalArgumentException("Category already exists");
+            throw new CategoryAlreadyExistsException(AdapterConstants.CATEGORY_ALREADY_EXISTS);
         }
         categoryRepository.save(categoryEntityMapper.toEntity(category));
     }
@@ -32,7 +35,7 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     @Transactional
     public void delete(String name) {
         categoryRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException("Category not found"));
+                .orElseThrow(() -> new CategoryNotFoundException(AdapterConstants.CATEGORY_NOT_FOUND));
         categoryRepository.deleteByName(name);
     }
 

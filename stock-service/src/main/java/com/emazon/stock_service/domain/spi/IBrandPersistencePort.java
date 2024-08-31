@@ -9,6 +9,7 @@ public interface IBrandPersistencePort {
     void save(Brand brand);
     void delete(String name);
     Optional<Brand> findByName(String name);
+    Optional<Brand> findById(Long id);
     Page<Brand> findAllBrands(Pageable pageable);
 
 }

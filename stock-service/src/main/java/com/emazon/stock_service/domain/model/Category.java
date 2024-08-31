@@ -5,6 +5,8 @@ import com.emazon.stock_service.domain.exception.InvalidCategoryDescriptionExcep
 import com.emazon.stock_service.domain.exception.InvalidCategoryNameException;
 import com.emazon.stock_service.domain.utils.DomainConstants;
 
+import java.util.List;
+
 import static java.util.Objects.requireNonNull;
 
 public class Category {
@@ -12,6 +14,8 @@ public class Category {
     private String name;
     private String description;
 
+    public Category() {
+    }
     public Category(Long id, String name, String description) {
         if (name == null || name.trim().isEmpty()) {
             throw new EmptyFieldException(DomainConstants.FIELD_NAME_NULL_MESSAGE);
@@ -42,4 +46,15 @@ public class Category {
         return description;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

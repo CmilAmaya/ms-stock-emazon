@@ -9,13 +9,12 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "Categoria")
+@Table(name = "Articulo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class CategoryEntity {
-
+public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UniqueID")
@@ -27,10 +26,16 @@ public class CategoryEntity {
     @Column(name = "descripcion")
     private String description;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemCategoryEntity> itemCategories;
+    @Column(name = "cantidad")
+    private Long quantity;
 
-    public CategoryEntity(Long categoryId) {
-        this.id = categoryId;
-    }
+    @Column(name = "precio")
+    private Long price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_marca", referencedColumnName = "UniqueID", nullable = false)
+    private BrandEntity brand;
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ItemCategoryEntity> itemCategories;
 }
