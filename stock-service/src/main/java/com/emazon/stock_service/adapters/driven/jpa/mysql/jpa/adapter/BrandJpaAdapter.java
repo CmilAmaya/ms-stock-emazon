@@ -1,7 +1,10 @@
 package com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.adapter;
 
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.exception.BrandAlreadyExistsException;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.exception.BrandNotFoundException;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.mapper.IBrandEntityMapper;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.repository.IBrandRepository;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.utils.AdapterConstants;
 import com.emazon.stock_service.domain.model.Brand;
 import com.emazon.stock_service.domain.spi.IBrandPersistencePort;
 import jakarta.transaction.Transactional;
@@ -22,7 +25,7 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
     @Transactional
     public void save(Brand brand) {
         if(brandRepository.findByName(brand.getName()).isPresent()) {
-            throw new IllegalArgumentException("Brand already exists");
+            throw new BrandAlreadyExistsException(AdapterConstants.BRAND_ALREADY_EXISTS);
         }
         brandRepository.save(brandEntityMapper.toEntity(brand));
     }
@@ -31,7 +34,7 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
     @Transactional
     public void delete(String name) {
         brandRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException("Brand not found"));
+                .orElseThrow(() -> new BrandNotFoundException(AdapterConstants.BRAND_NOT_FOUND));
         brandRepository.deleteByName(name);
     }
 

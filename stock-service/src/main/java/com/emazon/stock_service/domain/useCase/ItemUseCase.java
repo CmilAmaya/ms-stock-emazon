@@ -1,8 +1,10 @@
 package com.emazon.stock_service.domain.useCase;
 
 import com.emazon.stock_service.domain.api.IItemServicePort;
+import com.emazon.stock_service.domain.exception.BrandNotFoundException;
 import com.emazon.stock_service.domain.exception.InvalidCategoryNumberException;
 import com.emazon.stock_service.domain.exception.InvalidItemNameException;
+import com.emazon.stock_service.domain.exception.ItemNotFoundException;
 import com.emazon.stock_service.domain.model.Brand;
 import com.emazon.stock_service.domain.model.Item;
 import com.emazon.stock_service.domain.spi.IBrandPersistencePort;
@@ -19,13 +21,13 @@ public class ItemUseCase implements IItemServicePort {
     @Override
     public void createItem(Item item) {
         if (item.getCategoriesIds() == null || item.getCategoriesIds().isEmpty()) {
-            throw new IllegalArgumentException("At least one category must be associated.");
+            throw new InvalidCategoryNumberException(DomainConstants.FIELD_CATEGORIES_NULL_MESSAGE);
         }
         if (item.getCategoriesIds().size() > DomainConstants.MAXIMUM_CATEGORY_NUMBER) {
-            throw new InvalidCategoryNumberException("The number of categories exceeds the maximum allowed.");
+            throw new InvalidCategoryNumberException(DomainConstants.FIELD_CATEGORIES_NUMBER_MESSAGE);
         }
         Brand brand = iBrandPersistencePort.findById(item.getBrand().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Brand not found"));
+                .orElseThrow(() -> new BrandNotFoundException(DomainConstants.BRAND_NOT_FOUND));
         item.setBrand(brand);
         iItemPersistencePort.save(item);
     }
@@ -33,7 +35,7 @@ public class ItemUseCase implements IItemServicePort {
     @Override
     public void deleteItem(String name) {
         if(iItemPersistencePort.findByName(name).isEmpty()) {
-            throw new InvalidItemNameException(DomainConstants.ITEM_NOT_FOUND);
+            throw new ItemNotFoundException(DomainConstants.ITEM_NOT_FOUND);
         }
         iItemPersistencePort.delete(name);
     }
@@ -41,6 +43,6 @@ public class ItemUseCase implements IItemServicePort {
     @Override
     public Item getItem(String name) {
         return iItemPersistencePort.findByName(name)
-                .orElseThrow(() -> new InvalidItemNameException(DomainConstants.ITEM_NOT_FOUND));
+                .orElseThrow(() -> new ItemNotFoundException(DomainConstants.ITEM_NOT_FOUND));
     }
 }

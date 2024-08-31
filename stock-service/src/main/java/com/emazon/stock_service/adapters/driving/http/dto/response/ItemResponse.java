@@ -1,20 +1,20 @@
 package com.emazon.stock_service.adapters.driving.http.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
-@ToString
+@Setter
 public class ItemResponse {
-    private final Long id;
-    private final String name;
-    private final String description;
-    private final Long quantity;
-    private final Long price;
-    private final List<CategoryResponse> categories;
-    private final BrandResponse brand;
+    private  Long id;
+    private  String name;
+    private  String description;
+    private  Long quantity;
+    private  Long price;
+    private  List<CategoryResponse> categories;
+    private  BrandResponse brand;
+
 }

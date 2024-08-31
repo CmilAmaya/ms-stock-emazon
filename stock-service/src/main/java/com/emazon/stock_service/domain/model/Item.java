@@ -15,6 +15,8 @@ public class Item {
     private List<Long> categoriesIds;
     private Brand brand;
 
+    public Item() {
+    }
     public Item(Long id, String name, String description, Long quantity, Long price, List<Long> categoriesIds, Brand brand) {
         if(name == null || name.trim().isEmpty()) {
             throw new EmptyFieldException(DomainConstants.FIELD_NAME_NULL_MESSAGE);
@@ -23,7 +25,6 @@ public class Item {
             throw new EmptyFieldException(DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
         }
         if(categoriesIds == null || categoriesIds.isEmpty()) {
-            System.out.println("Categories received: " + categoriesIds);
             throw new EmptyFieldException(DomainConstants.FIELD_CATEGORIES_NULL_MESSAGE);
         }
         if(categoriesIds.size() > DomainConstants.MAXIMUM_CATEGORY_NUMBER) {
@@ -89,4 +90,7 @@ public class Item {
     public Brand getBrand() { return brand; }
 
     public void setBrand(Brand brand) { this.brand = brand; }
+
+    public void setBrandId(long l) {
+    }
 }

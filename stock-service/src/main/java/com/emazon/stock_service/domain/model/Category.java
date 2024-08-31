@@ -14,7 +14,8 @@ public class Category {
     private String name;
     private String description;
 
-
+    public Category() {
+    }
     public Category(Long id, String name, String description) {
         if (name == null || name.trim().isEmpty()) {
             throw new EmptyFieldException(DomainConstants.FIELD_NAME_NULL_MESSAGE);
@@ -45,4 +46,15 @@ public class Category {
         return description;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

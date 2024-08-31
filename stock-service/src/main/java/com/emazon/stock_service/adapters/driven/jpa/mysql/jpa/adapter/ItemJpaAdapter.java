@@ -3,9 +3,12 @@ package com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.adapter;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.entity.CategoryEntity;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.entity.ItemCategoryEntity;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.entity.ItemEntity;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.exception.ItemAlreadyExistsException;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.exception.ItemNotFoundException;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.mapper.IItemEntityMapper;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.repository.IItemCategoryRepository;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.repository.IItemRepository;
+import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.utils.AdapterConstants;
 import com.emazon.stock_service.domain.model.Item;
 import com.emazon.stock_service.domain.spi.IItemPersistencePort;
 import jakarta.transaction.Transactional;
@@ -26,7 +29,7 @@ public class ItemJpaAdapter implements IItemPersistencePort {
     @Transactional
     public void save(Item item) {
         if(itemRepository.findByName(item.getName()).isPresent()) {
-            throw new IllegalArgumentException("Item already exists");
+            throw new ItemAlreadyExistsException(AdapterConstants.ITEM_ALREADY_EXISTS);
         }
         ItemEntity itemEntity = itemEntityMapper.toItemEntity(item);
 
@@ -45,7 +48,7 @@ public class ItemJpaAdapter implements IItemPersistencePort {
     @Transactional
     public void delete(String name) {
         itemRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException("Item not found"));
+                .orElseThrow(() -> new ItemNotFoundException(AdapterConstants.ITEM_NOT_FOUND));
 
         itemRepository.deleteByName(name);
     }
