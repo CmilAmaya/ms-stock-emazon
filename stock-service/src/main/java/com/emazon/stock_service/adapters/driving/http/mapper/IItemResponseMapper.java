@@ -32,6 +32,7 @@ public abstract class IItemResponseMapper {
             return null;
         }
         return categoryIds.stream()
+                .distinct()
                 .map(categoryId -> {
                     CategoryEntity categoryEntity = categoryRepository.findById(categoryId).orElse(null);
                     if (categoryEntity == null) {

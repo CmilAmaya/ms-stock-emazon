@@ -64,7 +64,6 @@ public abstract class IItemEntityMapper {
         brand.setId(brandEntity.getId());
         brand.setName(brandEntity.getName());
         brand.setDescription(brandEntity.getDescription());
-        System.out.println("ACA ESTAMOS:" + brand.getName());
         return brand;
     }
 

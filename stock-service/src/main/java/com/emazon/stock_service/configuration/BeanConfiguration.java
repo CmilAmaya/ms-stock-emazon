@@ -7,6 +7,7 @@ import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.mapper.IItemEntity
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.repository.IBrandRepository;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.repository.IItemCategoryRepository;
 import com.emazon.stock_service.adapters.driven.jpa.mysql.jpa.repository.IItemRepository;
+import com.emazon.stock_service.adapters.driving.http.mapper.IItemResponseMapper;
 import com.emazon.stock_service.domain.api.IBrandServicePort;
 import com.emazon.stock_service.domain.api.ICategoryServicePort;
 import com.emazon.stock_service.domain.api.IItemServicePort;
@@ -36,6 +37,7 @@ public class BeanConfiguration {
     private final IItemRepository itemRepository;
     private final IItemEntityMapper itemEntityMapper;
     public final IItemCategoryRepository itemCategoryRepository;
+    public final IItemResponseMapper itemResponseMapper;
     @Bean
     public ICategoryPersistencePort categoryPersistencePort() {
         return new CategoryJpaAdapter(categoryRepository, categoryEntityMapper);
@@ -64,7 +66,7 @@ public class BeanConfiguration {
 
     @Bean
     public IItemServicePort itemServicePort() {
-        return new ItemUseCase(itemPersistencePort(), brandPersistencePort());
+        return new ItemUseCase(itemPersistencePort(), brandPersistencePort(), itemResponseMapper, categoryRepository);
     }
 
 
