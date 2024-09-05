@@ -8,6 +8,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class ItemResponse {
     private  Long id;
     private  String name;
